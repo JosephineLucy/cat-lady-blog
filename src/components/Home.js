@@ -1,17 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BlogList from './BlogList';
 
 const Home = () => {
 
-    const [blogs, setBlogs] = useState([
-        {title: 'I just love catsss', body: 'Very excited', author: 'Cat Lady', id: 1},
-        {title: 'Five ways to quickly ruin any living space', body: 'Scratch, chew, impart bodily fluids', author: 'Rupert', id: 2},
-        {title: 'Top tips for hiding', body: 'Find good hiding spot, hide in said hiding spot, do not come out until absolutely sure it is safe to do so', author: 'Harry', id: 3},
-        {title: 'My stink train terror', body: 'It was nearly midnight. A foul stench filled the air. I knew something was lurking in the other room; that it would take all my courage to face it...', author: 'Catman', id: 4}
-    ])
+    const [blogs, setBlogs] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(()=> {
+        setTimeout(()=> {
+            fetch('http://localhost:8000/blogs').then((response)=>{
+                if(!response.ok){
+                    throw Error('Sorry, could not fetch the data for that resource.');
+                }
+                return response.json();
+            }).then((data)=>{
+                setBlogs(data);
+                setIsLoading(false);
+                setError(null);
+            }).catch(err=>{
+                setError(err.message)
+                setIsLoading(false);
+            })
+        }, 1000)
+    }, [])
 
     return ( <div className="home">
-     <BlogList blogs={blogs}/>
+    {error && <p>{error}</p>}
+    {isLoading && <p>loading...</p>}
+    { blogs && <BlogList blogs={blogs} title="All Blogs!" />}
     </div> );
 }
  
