@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Create from './components/Create';
 import FullBlog from './components/FullBlog';
+import NotFound from './components/NotFound';
 
 function App() {
 
@@ -21,7 +22,9 @@ function App() {
           <Route path={'/blogs/:id'}>
             <FullBlog/>
           </Route>
-
+          <Route path={'*'}>
+            <NotFound/>
+          </Route>
         </Switch>
       </div>
     </div>
