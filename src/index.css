@@ -50,6 +50,8 @@
     margin-bottom: 8px;
   }
 
+/* full blog page */
+
   .full-blog h2 {
     font-size: 20px;
     color:  #f1356d;
@@ -58,6 +60,15 @@
 
   .full-blog div {
     margin: 20px 0;
+  }
+
+  .full-blog button {
+    background-color: #f1356d;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
   }
 
   /* create blog page */
